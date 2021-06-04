@@ -58,7 +58,7 @@ task: 'vid_qa'
 mdl:
   use_phr_clf: False
   aword_type: 'with_sw'
-  name: 'vog'
+  name: 'vog_qa'
   seg_feat_dim: 3072
   prop_feat_dim: 2048
   input_encoding_size: 512

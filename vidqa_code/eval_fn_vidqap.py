@@ -9,7 +9,7 @@ Requires Bertscore
 from pathlib import Path
 import fire
 from yacs.config import CfgNode as CN
-from _init_stuff import yaml
+import yaml
 import pickle
 import numpy as np
 from collections import namedtuple
@@ -20,9 +20,12 @@ from collections import defaultdict
 from tqdm import tqdm
 from typing import List
 
-# from bert_score.utils import bert_cos_score_idf
 from bert_score.utils import get_bert_embedding, pad_sequence, greedy_cos_idf
 import torch
+
+import sys
+
+sys.path.append("./coco-caption")
 
 
 def remove_nonascii(text):
@@ -222,7 +225,7 @@ class BertScoreSimple:
         return corpus_scores, sent_scores
 
 
-class EvalFnCap:
+class EvalFnQAP:
     def __init__(self, cfg, comm, met_keys, read_val_file: bool = True):
         self.cfg = cfg
         self.comm = comm
@@ -526,10 +529,10 @@ class EvalFnCap:
                 tok_hypo_dct=tok_hypo_dct, tok_gts_ref_dct=tok_gts_ref_dct
             )
         else:
-            if not self.cfg.ds.val_full_bal:
-                full_bal = False
-            else:
-                full_bal = True
+            # if not self.cfg.ds.val_full_bal:
+            full_bal = False
+            # else:
+            #     full_bal = True
             out_score_dict_by_qtype = {}
 
             qtype_lst = ["<Q-ARG0>", "<Q-V>", "<Q-ARG1>", "<Q-ARG2>", "<Q-ARGM-LOC>"]
@@ -561,12 +564,12 @@ class EvalFnCap:
 
 
 def main(pred_file, split_type="valid"):
-    from qcode.eval_ivd import get_met_keys_
+    from vidqa_code.eval_vidqap import get_met_keys_
 
     cfg = CN(yaml.safe_load(open("./configs/ivd_asrl_cfg.yml")))
     cfg.ds.val_full_bal = False
     met_keys = ["meteor", "rouge", "bert_score"]
-    evl_fn = EvalFnCap(cfg, None, met_keys)
+    evl_fn = EvalFnQAP(cfg, None, met_keys)
     out = evl_fn.eval_vidqap_met(pred_file, do_rescaling=True)
     out_met_keys = get_met_keys_(met_keys)
     print({k: v for k, v in out.items() if k in out_met_keys})

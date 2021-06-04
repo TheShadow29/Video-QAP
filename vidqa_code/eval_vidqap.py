@@ -16,7 +16,7 @@ from utils.trn_utils import (
     compute_avg_dict,
     move_to,
 )
-from vidqa_code.eval_fn_vidqap import EvalFnCap
+from vidqa_code.eval_fn_vidqap import EvalFnQAP
 from vidqa_code.seq_gen import SequenceGenerator
 from typing import List
 from vidqa_code.mdl_qa import get_tgt_keydct_from_cfg
@@ -90,7 +90,7 @@ class EvalB(nn.Module):
             cfg=cfg,
             comm=comm,
         )
-        self.cap_eval = EvalFnCap(cfg, comm, self.in_met_keys)
+        self.vidqap_eval = EvalFnQAP(cfg, comm, self.in_met_keys)
         # self.
         self.enc_key_dct = get_enc_keydct_from_cfg(self.cfg)
         self.tgt_tok_key_dct = get_tgt_keydct_from_cfg(self.cfg)
@@ -193,8 +193,8 @@ class EvalB(nn.Module):
                 tmp_file.unlink
             with open(fname, "wb") as f:
                 pickle.dump(curr_results, f)
-            out_acc = self.cap_eval.eval_vidqap_met(
-                fname, split_type="val", do_rescaling=self.cfg.evl.do_rescale
+            out_acc = self.vidqap_eval.eval_vidqap_met(
+                fname, split_type="valid", do_rescaling=self.cfg.evl.do_rescale
             )
             val_acc = {
                 k: torch.tensor(v).to(self.device)

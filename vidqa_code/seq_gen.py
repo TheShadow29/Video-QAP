@@ -417,11 +417,17 @@ class SequenceGenerator(object):
             eos_mask[:, :beam_size][blacklist] = 0
 
             # only consider eos when it's among the top beam_size indices
+            # import pdb
+
+            # pdb.set_trace()
             torch.masked_select(
                 cand_bbsz_idx[:, :beam_size],
                 mask=eos_mask[:, :beam_size],
                 out=eos_bbsz_idx,
             )
+            # import pdb
+
+            # pdb.set_trace()
 
             finalized_sents = set()
             if eos_bbsz_idx.numel() > 0:

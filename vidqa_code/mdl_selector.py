@@ -3,7 +3,7 @@ Select the model, loss, eval_fn
 """
 
 
-from vidqa_code.eval_ivd import EvalB
+from vidqa_code.eval_vidqap import EvalB
 from vidqa_code.mdl_qa import (
     LangQA,
     MTxVidSimple,

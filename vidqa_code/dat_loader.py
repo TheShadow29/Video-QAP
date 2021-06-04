@@ -645,6 +645,7 @@ class AnetSRL_VidQA_:
         self.itemgetter = getattr(self, "qa_item_getter2")
 
     def __len__(self) -> int:
+        # return 100
         return len(self.qsrl_idx_lst)
 
     def process_srl_row_simple(self, srl_row, word_dct: Dictionary):

@@ -1,12 +1,13 @@
 from yacs.config import CfgNode as CN
 
-import yaml
+from ._init_stuff import yaml
 from typing import Dict, Any
 
+key_maps = {}
 
 
 def get_default_cfg():
-    with open("./configs/ivd_asrl_cfg.yml") as f:
+    with open("./configs/asrl_qa_cfg.yml") as f:
         def_cfg = yaml.safe_load(f)
 
     def_cfg["ds_name"] = "anet"
@@ -16,9 +17,9 @@ def get_default_cfg():
 
 
 def get_ch_cfg():
-    with open("./configs/ivd_asrl_cfg.yml") as f:
+    with open("./configs/asrl_qa_cfg.yml") as f:
         def_cfg = yaml.safe_load(f)
-    with open("./configs/ivd_ch_cfg.yml") as g:
+    with open("./configs/ch_qa_cfg.yml") as g:
         chqa_cfg = yaml.safe_load(g)
 
     def_cfg["ds_name"] = "ch"

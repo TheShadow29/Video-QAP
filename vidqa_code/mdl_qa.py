@@ -32,6 +32,24 @@ def update_namespace(inp_ns, **kwargs):
         setattr(inp_ns, name, kwargs[name])
 
 
+def get_encoder_out(
+    encoder_out,
+    encoder_padding_mask,
+    encoder_embedding,
+    encoder_states,
+    src_tokens,
+    src_lengths,
+):
+    return EncoderOut(
+        encoder_out=encoder_out,  # T x B x C
+        encoder_padding_mask=encoder_padding_mask,  # B x T
+        encoder_embedding=encoder_embedding,  # B x T x C
+        encoder_states=encoder_states,  # List[T x B x C]
+        # src_tokens=src_tokens,  # B x T
+        # src_lengths=src_lengths,  # B x 1
+    )
+
+
 class TxEncSimple(nn.Module):
     """
     Transformer encoder consisting of *args.encoder_layers* layers. Each layer
@@ -140,11 +158,13 @@ class TxEncSimple(nn.Module):
             if return_all_hiddens:
                 encoder_states[-1] = x
 
-        return EncoderOut(
+        return get_encoder_out(
             encoder_out=x,  # T x B x C
             encoder_padding_mask=encoder_padding_mask,  # B x T
             encoder_embedding=encoder_embedding,  # B x T x C
             encoder_states=encoder_states,  # List[T x B x C]
+            src_tokens=src_tokens,  # B x T
+            src_lengths=src_lengths,  # B x 1
         )
 
     def max_positions(self):
@@ -399,11 +419,13 @@ class MTxVidSimple(BaseLangTx):
             inp2 = inp
         enc_out = self.vis_lang_encoder(inp2["src_tokens"])
 
-        return EncoderOut(
+        return get_encoder_out(
             encoder_out=enc_out.transpose(0, 1),
             encoder_padding_mask=None,
             encoder_embedding=None,
             encoder_states=None,
+            src_tokens=None,  # B x T
+            src_lengths=None,  # B x 1
         )
 
 
@@ -498,11 +520,13 @@ class BUTD_Simple(BaseLangTx):
 
         vis_lang_out = self.vis_lang_enc(vis_src_emb_out * lang_enc1)
 
-        return EncoderOut(
+        return get_encoder_out(
             encoder_out=vis_lang_out.unsqueeze(0),  # T x B x C
             encoder_padding_mask=None,  # B x T
             encoder_embedding=None,  # B x T x C
             encoder_states=None,  # List[T x B x C]
+            src_tokens=None,  # B x T
+            src_lengths=None,  # B x 1
         )
 
     def prepare_prev_toks(self, inp):
@@ -621,11 +645,13 @@ class VOGSimple(BaseLangTx):
         vis_lang_conc_reshape = vis_lang_conc.view(B, num_srls * nprop, vdim)
         # B x num_srls*nprop x vdim
         vis_lang_out = self.vis_lang_txf(vis_lang_conc_reshape)
-        return EncoderOut(
+        return get_encoder_out(
             encoder_out=vis_lang_out.transpose(0, 1),  # T x B x C
             encoder_padding_mask=None,  # B x T
             encoder_embedding=None,  # B x T x C
             encoder_states=None,  # List[T x B x C]
+            src_tokens=None,  # B x T
+            src_lengths=None,  # B x 1
         )
 
     def prepare_prev_toks(self, inp):

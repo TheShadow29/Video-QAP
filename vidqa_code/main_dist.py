@@ -174,10 +174,10 @@ def main_dist(uid: str, **kwargs):
     # cfg = conf
     assert "ds_to_use" in kwargs
     ds_to_use = kwargs["ds_to_use"]
-    assert ds_to_use in ["anet", "ch"]
-    if ds_to_use == "anet":
+    assert ds_to_use in ["asrl_qa", "ch_qa"]
+    if ds_to_use == "asrl_qa":
         cfg = get_default_cfg()
-    elif ds_to_use == "ch":
+    elif ds_to_use == "ch_qa":
         cfg = get_ch_cfg()
     else:
         raise NotImplementedError
