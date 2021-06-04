@@ -1,6 +1,9 @@
 # Video-QAP (NAACL21)
 Repository for the paper Video Question Answering with Phrases via Semantic Roles
 
-**WIP**.
+Added Datasets, Models and Evaluation scheme.
 
-Okay, this time promise by April 30th, 2021
+ToDo:
+
+- [ ] Add model weights for reproducibility
+- [ ] Support dataset creation for new caption dataset.
