@@ -1,0 +1,73 @@
+ds_name: "charades"
+ds:
+  srl_caps: "SRL_Charades_cap_annots.csv"
+  srl_bert: "srl_bert_preds.pkl"
+  video_dir: './data/Charades_v1_480'
+  frm_dir: './data/Charades_v1_480_fps30'
+  seg_feats_mixed_5c: './data/charades_s3d_stuff/s3d_charades_rgb_mix5c'
+  seg_feats_mixed_5c_out: './data/charades_s3d_stuff/s3d_charades_rgb_mix5c_ftdir'
+  seg_feats_fc: './data/charades_s3d_stuff/s3d_charades_rgb_fc'
+  seg_feats_fc_out: './data/charades_s3d_stuff/s3d_charades_rgb_fc_ftdir'
+  frm_list: './data/charades_s3d_stuff/s3d_charades_frm_list.csv'
+  fps1_frm_list: './data/charades_s3d_stuff/s3d_charades_fps1_frm_list.csv'
+  s3d_np_dct: './data/s3d_stuff/s3d_dict.npy'
+  s3d_weight: './data/s3d_stuff/s3d_howto100m.pth'
+  ann_dir: './data/charades_sta'
+  fps_data_json_file: './data/charades_sta/fps_data.json'
+  ag_frm_txt_file: './data/charades_sta/frame_list.txt'
+  frms_for_detn: './data/charades_sta/frms_for_detn.json'
+  sta_trn_txt_file: './data/charades_sta/charades_sta_train.txt'
+  sta_test_txt_file: './data/charades_sta/charades_sta_test.txt'
+  ch_trn_file: './data/charades_sta/Charades/Charades_v1_train.csv'
+  ch_test_file: './data/charades_sta/Charades/Charades_v1_test.csv'
+  sta_trn_file: './data/charades_sta/charades_sta_train_proc.csv'
+  sta_test_file: './data/charades_sta/charades_sta_test_proc.csv'
+
+  verb_lemma_dict_file: './data/charades_sta/ch_verb_lemma.json'
+  exclude_verb_set: ['be', 'see', 'show', "'s", 'can', 'continue', 'begin', 'start', 'stop', 'lead', 'end', 'starts', 'stops']
+  include_srl_args: ['ARG0', 'ARG1', 'ARG2', 'ARGM-LOC']
+  coref_bert: './cache_dir/coref_out_charades.json'
+
+  verb_ent_file: './data/charades_sta/ch_verb_ent.json'
+  ch_srl_coref: './data/charades_sta/ch_verb_ent_coref.json'
+  trn_ch_srl_coref: './data/charades_sta/trn_ch_verb_ent_coref.json'
+  val_ch_srl_coref: './data/charades_sta/val_ch_verb_ent_coref.json'
+
+  # Ch
+  trn_with_qa: "./data/charades_sta/trn_srl_annots_with_qa.json"
+  val_with_qa: "./data/charades_sta/val_srl_annots_with_qa.json"
+  # ch_QA_Flat:
+  trn_with_qa_flat: "./data/charades_sta/trn_srl_annots_with_qa_flat.json"
+  val_with_qa_flat: "./data/charades_sta/val_srl_annots_with_qa_flat.json"
+  # Balanced Dict:
+  trn_with_qa_dict: "./data/charades_sta/trn_srl_annots_with_qa_dct.json"
+  val_with_qa_dict: "./data/charades_sta/val_srl_annots_with_qa_dct.json"
+  # ch_QA_Flat:
+  trn_with_qa_flat_balanced: "./data/charades_sta/trn_srl_annots_with_qa_flat_balanced.json"
+  val_with_qa_flat_balanced: "./data/charades_sta/val_srl_annots_with_qa_flat_balanced.json"
+  # ch_QA Flat Trimmed:
+  trn_qa_flat_bal_trim: "./data/charades_sta/trn_srlqa_flat_bal_trim.json"
+  val_qa_flat_bal_trim: "./data/charades_sta/val_srlqa_flat_bal_trim.json"
+
+  arg_vocab_file: "data/vocab/arg_vocab.pkl"
+  qarg_vocab_file: "./data/charades_sta/qarg_vocab.pkl"
+  word_vocab_file: './data/charades_sta/word_vocab.pkl'
+  qword_vocab_file: './data/charades_sta/qword_vocab.pkl'
+  ans_vocab_file: "data/vocab/ch_aphr_vocab_10k.pkl"
+  ans_nosw_vocab_file: "data/vocab/ch_aphr_nosw_vocab_10k.pkl"
+  ans_vocab_file_1k: "data/vocab/ch_aphr_vocab.pkl"
+  ans_nosw_vocab_file_1k: "data/vocab/ch_aphr_nosw_vocab.pkl"
+
+  # word_vocab_file: "data/vocab/word_vocab.pkl"
+  # qword_vocab_file: "data/vocab/qword_vocab.pkl"
+
+  num_frms_to_select: 45
+  trn_shuffle: True
+  trn_bal: False
+  val_full_bal: False
+
+
+misc:
+  cache_dir: "cache_dir"
+
+ds_to_use: 'ch'
