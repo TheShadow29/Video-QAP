@@ -1,0 +1,7 @@
+other_codes/
+data/
+*__pycache__/
+coco-caption
+cocoapi/
+tmp/
+fairseq/

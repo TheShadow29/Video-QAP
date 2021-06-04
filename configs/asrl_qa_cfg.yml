@@ -1,0 +1,207 @@
+ds_name: "anet"
+
+ds:
+  # one of ['one_vid_seg', 'one_vid_seg_srl']
+  df_index_type: "one_vid_seg"
+  # where to find the rgb+flow data
+  seg_feature_root: "data/anet/rgb_motion_1d"
+  # choose one setting
+  exp_setting: "gt5" #"gt5" or "p100"
+  gt5:
+    # bounding boxes from FasterRCNN
+    proposal_h5: "data/anet/anet_detection_vg_fc6_feat_gt5_rois.h5"
+    # extracted features from FasterRCNN
+    feature_root: "data/anet/fc6_feat_5rois"
+    # number of proposals considered per frame
+    num_prop_per_frm: 5
+  p100:
+    proposal_h5: "data/anet/anet_detection_vg_fc6_feat_100rois_resized.h5"
+    feature_root: "data/anet/fc6_feat_100rois"
+    num_prop_per_frm: 100
+  resized_width: 720
+  resized_height: 405
+  num_sampled_frm: 10
+  max_gt_box: 100
+  t_attn_size: 480
+  max_seq_length: 20
+  anet_cap_file: "data/asrl_vidqap_files/anet_captions_all_splits.json"
+  anet_ent_annot_file: "data/asrl_vidqap_files/anet_ent_cls_bbox_trainval.json"
+  anet_ent_split_file: "data/anet_cap_ent_files/dic_anet.json"
+  include_srl_args: ['ARG0', 'ARG1', 'ARG2', 'ARGM-LOC']
+  # Vocab file for SRLs
+  # arg_vocab_file: "data/anet_verb/arg_vocab.pkl"
+  arg_vocab_file: "data/anet_vocab/arg_vocab.pkl"
+  qarg_vocab_file: "data/anet_vocab/qarg_vocab.pkl"
+  word_vocab_file: "data/anet_vocab/word_vocab.pkl"
+  qword_vocab_file: "data/anet_vocab/qword_vocab.pkl"
+  ans_vocab_file: "data/anet_vocab/aphr_vocab_10k.pkl"
+  ans_nosw_vocab_file: "data/anet_vocab/aphr_nosw_vocab_10k.pkl"
+  ans_vocab_file_1k: "data/anet_vocab/aphr_vocab.pkl"
+  ans_nosw_vocab_file_1k: "data/anet_vocab/aphr_nosw_vocab.pkl"
+  # Annot files:
+  trn_ann_file: "data/anet/csv_dir/train_postproc.csv"
+  val_ann_file: "data/anet/csv_dir/val_postproc.csv"
+  # ASRL_QA Flat Trimmed:
+  trn_qa_trim: "data/asrl_vidqap_files/trn_srlqa_trim.json"
+  val_qa_trim: "data/asrl_vidqap_files/val_srlqa_trim.json"
+  # ASRL QA trn/val/test vid IDS
+  trn_val_test_vid_ids: "data/anet_srl_files/trn_val_test_vid_ids.json"
+  none_word: "<none>"
+  # num_frms_to_select
+  num_frms_to_select: 10
+  trn_bal: False
+
+# task is one of
+# ['vid_qa', 'vid_cap', 'cond_vid_cap', 'iter_vid_cap']
+task: 'vid_qa'
+
+mdl:
+  use_phr_clf: False
+  aword_type: 'with_sw'
+  name: 'vog_qa'
+  seg_feat_dim: 3072
+  prop_feat_dim: 2048
+  input_encoding_size: 512
+  use_vis_msk: True
+  use_roberta: False
+  use_srl_bounds: True
+  rnn:
+    rnn_size: 1024
+    num_layers: 1
+    drop_prob_lm: 0.5
+    bidirectional: True
+  vsrl:
+    prop_encode_size: 512
+    seg_encode_size: 512
+    lang_encode_size: 512
+  obj_tx:
+    to_use: true
+    n_layers: 1
+    n_heads: 3
+    attn_drop: 0.2
+    use_rel: false
+    one_frm: false
+    use_ddp: false
+  mul_tx:
+    to_use: true
+    n_layers: 1
+    n_heads: 3
+    attn_drop: 0.2
+    use_rel: false
+    one_frm: true
+    cross_frm: false
+  lang_tx:
+    # can be lstm/tx
+    module_type: 'tx'
+    encoder_layers: 3
+    decoder_layers: 3
+    encoder_layers_to_keep: False
+    decoder_layers_to_keep: False
+    encoder_layerdrop: 0
+    decoder_layerdrop: 0
+    max_target_positions: 1024
+    max_source_positions: 1024
+    decoder_embed_dim: 512
+  mtx_simple_enc:
+    add_props: False
+    dropout: 0
+    no_scale_embedding: False
+    encoder_layerdrop: 0
+    encoder_layers: 3
+    encoder_embed_dim: 512
+    encoder_attention_heads: 8
+    encoder_normalize_before: False
+    encoder_ffn_embed_dim: 2048
+    attention_dropout: 0
+    max_source_positions: 1200
+    no_token_positional_embeddings: true
+    layer_wise_attention: false
+    embed_dim: 1024
+  butd:
+    add_props: False
+    add_obj_tx: False
+  lstm_decoder:
+    embed_dim: 512
+    hidden_size: 1024
+    num_layers: 2
+  vog:
+    add_box_loss: False
+    add_props: False
+    add_obj_tx: False
+
+
+loss:
+  only_vid_loss: false
+  loss_lambda: 1
+  loss_margin: 0.1
+  loss_margin_vid: 0.5
+  # loss_type is either
+  # cosine or bce
+  loss_type: 'bce'
+
+evl:
+  do_rescale: True
+
+gen:
+  beam: 2
+  max_len_a: 0
+  max_len_b: 200
+  min_len: 0
+  unnormalized: False
+  lenpen: 1
+  unkpen: 0
+  retain_dropout: False
+  temperature: 1.0
+  match_source_len: False
+  no_repeat_ngram_size: 0
+
+misc:
+  # Place to save models/logs/predictions etc
+  tmp_path: "tmp"
+  # Include/Exclude proposal based on the threshold
+  prop_thresh: 0.
+  # Whether to exclude the proposals having background class
+  exclude_bgd_det: False
+  # Whether to add the proposal (5d coordinate) to
+  # the region feature
+  add_prop_to_region: False
+  # What context to use for average pooling segment features
+  ctx_for_seg_feats: 0
+  # max number of semantic roles in a sentence
+  srl_arg_length: 5
+  # how many boxes to consider for a particular phrase
+  box_per_srl_arg: 4
+  # use bos or eos for decoding
+  use_bos_decoding: false
+
+train:
+  lr: 1e-4
+  epochs: 10
+  bs: 16
+  nw: 4
+  bsv: 16
+  nwv: 4
+  ns: 4
+  resume: true
+  resume_path: ""
+  load_opt: false
+  load_normally: true
+  strict_load: true
+  use_reduce_lr_plateau: false
+  verbose: false
+  prob_thresh: 0.2
+
+log:
+  deb_it: 2
+
+local_rank: 0
+do_dist: False
+do_dp: false
+num_gpus: 1
+only_val: false
+only_test: false
+run_final_val: true
+overfit_batch: false
+DIST_BACKEND: "nccl"
+SHARD_ID: 0
+ds_to_use: 'anet'
