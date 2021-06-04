@@ -1018,7 +1018,10 @@ def get_data(cfg):
 
 
 if __name__ == "__main__":
-    cfg = CN(yaml.safe_load(open("./configs/asrl_qa_cfg.yml")))
+    # cfg = CN(yaml.safe_load(open("./configs/asrl_qa_cfg.yml")))
+    from vidqa_code.extended_config import get_default_cfg, get_ch_cfg
+
+    cfg = get_ch_cfg()
     # cfg.train.nw = 0
     cfg.train.bs = 16
     cfg.train.nw = 4

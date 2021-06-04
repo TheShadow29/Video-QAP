@@ -4,12 +4,12 @@ ds:
   srl_bert: "srl_bert_preds.pkl"
   video_dir: './data/Charades_v1_480'
   frm_dir: './data/Charades_v1_480_fps30'
-  seg_feats_mixed_5c: './data/charades_s3d_stuff/s3d_charades_rgb_mix5c'
-  seg_feats_mixed_5c_out: './data/charades_s3d_stuff/s3d_charades_rgb_mix5c_ftdir'
-  seg_feats_fc: './data/charades_s3d_stuff/s3d_charades_rgb_fc'
-  seg_feats_fc_out: './data/charades_s3d_stuff/s3d_charades_rgb_fc_ftdir'
-  frm_list: './data/charades_s3d_stuff/s3d_charades_frm_list.csv'
-  fps1_frm_list: './data/charades_s3d_stuff/s3d_charades_fps1_frm_list.csv'
+  seg_feats_mixed_5c: './data/charades/s3d_charades_rgb_mix5c'
+  seg_feats_mixed_5c_out: './data/charades/s3d_charades_rgb_mix5c_ftdir'
+  seg_feats_fc: './data/charades/s3d_charades_rgb_fc'
+  seg_feats_fc_out: './data/charades/s3d_charades_rgb_fc_ftdir'
+  frm_list: './data/charades/s3d_charades_frm_list.csv'
+  fps1_frm_list: './data/charades/s3d_charades_fps1_frm_list.csv'
   s3d_np_dct: './data/s3d_stuff/s3d_dict.npy'
   s3d_weight: './data/s3d_stuff/s3d_howto100m.pth'
   ann_dir: './data/charades_sta'
@@ -33,30 +33,18 @@ ds:
   trn_ch_srl_coref: './data/charades_sta/trn_ch_verb_ent_coref.json'
   val_ch_srl_coref: './data/charades_sta/val_ch_verb_ent_coref.json'
 
-  # Ch
-  trn_with_qa: "./data/charades_sta/trn_srl_annots_with_qa.json"
-  val_with_qa: "./data/charades_sta/val_srl_annots_with_qa.json"
-  # ch_QA_Flat:
-  trn_with_qa_flat: "./data/charades_sta/trn_srl_annots_with_qa_flat.json"
-  val_with_qa_flat: "./data/charades_sta/val_srl_annots_with_qa_flat.json"
-  # Balanced Dict:
-  trn_with_qa_dict: "./data/charades_sta/trn_srl_annots_with_qa_dct.json"
-  val_with_qa_dict: "./data/charades_sta/val_srl_annots_with_qa_dct.json"
-  # ch_QA_Flat:
-  trn_with_qa_flat_balanced: "./data/charades_sta/trn_srl_annots_with_qa_flat_balanced.json"
-  val_with_qa_flat_balanced: "./data/charades_sta/val_srl_annots_with_qa_flat_balanced.json"
   # ch_QA Flat Trimmed:
-  trn_qa_flat_bal_trim: "./data/charades_sta/trn_srlqa_flat_bal_trim.json"
-  val_qa_flat_bal_trim: "./data/charades_sta/val_srlqa_flat_bal_trim.json"
+  trn_qa_trim: "./data/charades_vidqap_files/trn_srlqa_trim.json"
+  val_qa_trim: "./data/charades_vidqap_files/val_srlqa_trim.json"
 
-  arg_vocab_file: "data/vocab/arg_vocab.pkl"
-  qarg_vocab_file: "./data/charades_sta/qarg_vocab.pkl"
-  word_vocab_file: './data/charades_sta/word_vocab.pkl'
-  qword_vocab_file: './data/charades_sta/qword_vocab.pkl'
-  ans_vocab_file: "data/vocab/ch_aphr_vocab_10k.pkl"
-  ans_nosw_vocab_file: "data/vocab/ch_aphr_nosw_vocab_10k.pkl"
-  ans_vocab_file_1k: "data/vocab/ch_aphr_vocab.pkl"
-  ans_nosw_vocab_file_1k: "data/vocab/ch_aphr_nosw_vocab.pkl"
+  arg_vocab_file: "data/charades_vocab/arg_vocab.pkl"
+  qarg_vocab_file: "./data/charades_vocab/qarg_vocab.pkl"
+  word_vocab_file: './data/charades_vocab/word_vocab.pkl'
+  qword_vocab_file: './data/charades_vocab/qword_vocab.pkl'
+  ans_vocab_file: "data/charades_vocab/ch_aphr_vocab_10k.pkl"
+  ans_nosw_vocab_file: "data/charades_vocab/ch_aphr_nosw_vocab_10k.pkl"
+  ans_vocab_file_1k: "data/charades_vocab/ch_aphr_vocab.pkl"
+  ans_nosw_vocab_file_1k: "data/charades_vocab/ch_aphr_nosw_vocab.pkl"
 
   # word_vocab_file: "data/vocab/word_vocab.pkl"
   # qword_vocab_file: "data/vocab/qword_vocab.pkl"

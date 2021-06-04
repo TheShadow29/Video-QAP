@@ -24,26 +24,26 @@ ds:
   max_gt_box: 100
   t_attn_size: 480
   max_seq_length: 20
-  anet_cap_file: "data/anet_vidqap_files/anet_captions_all_splits.json"
-  anet_ent_annot_file: "data/anet_vidqap_files/anet_ent_cls_bbox_trainval.json"
+  anet_cap_file: "data/asrl_vidqap_files/anet_captions_all_splits.json"
+  anet_ent_annot_file: "data/asrl_vidqap_files/anet_ent_cls_bbox_trainval.json"
   anet_ent_split_file: "data/anet_cap_ent_files/dic_anet.json"
   include_srl_args: ['ARG0', 'ARG1', 'ARG2', 'ARGM-LOC']
   # Vocab file for SRLs
   # arg_vocab_file: "data/anet_verb/arg_vocab.pkl"
-  arg_vocab_file: "data/vocab/arg_vocab.pkl"
-  qarg_vocab_file: "data/vocab/qarg_vocab.pkl"
-  word_vocab_file: "data/vocab/word_vocab.pkl"
-  qword_vocab_file: "data/vocab/qword_vocab.pkl"
-  ans_vocab_file: "data/vocab/aphr_vocab_10k.pkl"
-  ans_nosw_vocab_file: "data/vocab/aphr_nosw_vocab_10k.pkl"
-  ans_vocab_file_1k: "data/vocab/aphr_vocab.pkl"
-  ans_nosw_vocab_file_1k: "data/vocab/aphr_nosw_vocab.pkl"
+  arg_vocab_file: "data/anet_vocab/arg_vocab.pkl"
+  qarg_vocab_file: "data/anet_vocab/qarg_vocab.pkl"
+  word_vocab_file: "data/anet_vocab/word_vocab.pkl"
+  qword_vocab_file: "data/anet_vocab/qword_vocab.pkl"
+  ans_vocab_file: "data/anet_vocab/aphr_vocab_10k.pkl"
+  ans_nosw_vocab_file: "data/anet_vocab/aphr_nosw_vocab_10k.pkl"
+  ans_vocab_file_1k: "data/anet_vocab/aphr_vocab.pkl"
+  ans_nosw_vocab_file_1k: "data/anet_vocab/aphr_nosw_vocab.pkl"
   # Annot files:
   trn_ann_file: "data/anet/csv_dir/train_postproc.csv"
   val_ann_file: "data/anet/csv_dir/val_postproc.csv"
   # ASRL_QA Flat Trimmed:
-  trn_qa_trim: "data/anet_vidqap_files/trn_srlqa_flat_bal_trim.json"
-  val_qa_trim: "data/anet_vidqap_files/val_srlqa_flat_bal_trim.json"
+  trn_qa_trim: "data/asrl_vidqap_files/trn_srlqa_trim.json"
+  val_qa_trim: "data/asrl_vidqap_files/val_srlqa_trim.json"
   # ASRL QA trn/val/test vid IDS
   trn_val_test_vid_ids: "data/anet_srl_files/trn_val_test_vid_ids.json"
   none_word: "<none>"
