@@ -58,7 +58,17 @@ data
     └── word_vocab.pkl
 ```
 
+## Annotation Structure
 
-## Part 2 - Create dataset from scratch, and likely for a new captioning dataset
+1. The main question/answer files are located in `{anet/charades}_vidqap_files/{trn/val}_srlqa_trim.json`
+2. There are a lot of keys, but only a few of them are useful. Others are kept for legacy. In particular:
+    1. `qsrl_ind`: Identifier in the particular set.
+    2. `vt_split`: whether train/valid/test 
+    3. `vid_seg`: Video segment of the file
+    4. `qa_pair`: Dict with the keys: `question` and `answer` and `question_type`. In evaluation, `question_type` value is replaced with prediction and gt answers.
+    5. `cs_qsrl_inds`: List of searched contrastive samples. For validation, test sets use the first one. 
+    6. For other keys, please refer to https://github.com/TheShadow29/vognet-pytorch/tree/master/data#annotation-file-structure
+
+## Part 3 - Create dataset from scratch, and likely for a new captioning dataset
 
 <WIP: Needs some heavy code clean up and refactorization>
