@@ -55,7 +55,7 @@ Please refer to [Miniconda](https://docs.conda.io/en/latest/miniconda.html) for 
 ToDo:
 
 - [ ] Add more documentation on how to run the models
-- [ ] Add model weights for reproducibility
+- [ ] Add pre-trained model weights.
 - [ ] Support dataset creation for new caption dataset.
 
 
